@@ -28,6 +28,17 @@ const UrlUploadModal = ({
         setIsModalVisible(false);
     };
 
+    //forces focus on input field when modal is opened
+    useEffect(() => {
+        const input = document.getElementsByClassName("ant-input")[
+            document.getElementsByClassName("ant-input").length - 1
+        ] as HTMLInputElement;
+        const inputFocus = setInterval(() => {
+            if (input !== document.activeElement) input.focus();
+        }, 200);
+        return () => clearInterval(inputFocus);
+    });
+
     const loadTrajectory = (values: any) => {
         history.push(`${VIEWER_PATHNAME}?trajUrl=${values.url}`);
         location.reload();
